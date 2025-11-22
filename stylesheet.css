@@ -1,6 +1,10 @@
 body {
     background: #0a0a0a;
     font-family: Arial, sans-serif;}
+    
+h1 {
+    color: #fff;
+}
 
 .glow-btn {
     position: relative;
