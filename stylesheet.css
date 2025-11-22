@@ -16,7 +16,7 @@ p {
     color: white;
     text-decoration: none;
     font-size: 20px;
-    border-radius: 12px;
+    border-radius: 4px;
     background: #111;
     z-index: 1;
     overflow: hidden;}
@@ -35,7 +35,7 @@ p {
     inset: -15px;
     border-radius: inherit;
     background: linear-gradient(135deg, #8a2cff, #3bb2ff);
-    filter: blur(20px);
+    filter: blur(5px);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: -2;}
