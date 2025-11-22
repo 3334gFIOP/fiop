@@ -34,8 +34,3 @@ body {
 
 .glow-btn:hover::after {
     opacity: 1;}
-
-.pos{
-    position: absolute;
-    left: 100px;
-    top: 150px;}
