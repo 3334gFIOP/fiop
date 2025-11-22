@@ -54,8 +54,3 @@ p {
     align-items: center;
     gap: 20px; 
 }
-
-.stacked-image {
-    width: 300px;
-    height: auto;
-}
