@@ -53,8 +53,8 @@ p {
     font-family: Arial, sans-serif;
     color: black;
     text-shadow: 
-        1px 1px 1 #8c00ff,
-        -1px -1px 1 #ff00f2,
-        -1px 1px 1 #1e00ff,
-        1px -1px 1 #00f2ff;
+        3px 3px 1 #8c00ff,
+        -3px -3px 1 #ff00f2,
+        -3px 3px 1 #1e00ff,
+        3px -3px 1 #00f2ff;
 }
