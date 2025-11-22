@@ -8,10 +8,6 @@ h1 {
     font-size: 48px;
 }
 
-p {
-    color: #fff;
-}
-
 .glow-btn {
     position: relative;
     padding: 15px 40px;
@@ -53,8 +49,8 @@ p {
     font-family: Arial, sans-serif;
     color: white;
     text-shadow: 
-        5px 5px 10px #8c00ff,
-        -5px -5px 10px #ff00f2,
-        -5px 5px 10px #1e00ff,
-        5px -5px 10px #00f2ff;
+        1px 1px 10px #8c00ff,
+        -1px -1px 10px #ff00f2,
+        -1px 1px 10px #1e00ff,
+        1px -1px 10px #00f2ff;
 }
