@@ -69,7 +69,7 @@ h1 {
         0 0 25px #0000ff,
         0 0 30px #4b0082,
         0 0 35px #8b00ff;
-    animation: rainbow 5s linear infinite;
+    animation: rainbow 2s linear infinite;
     display: inline-block;
 }
 
