@@ -97,56 +97,29 @@ h1 {
   font-weight: bold;
   color: white;
   text-align: center;
-  animation: rainbowSweep 6s linear infinite;
+  animation: rainbowShift 3s linear infinite;
 }
 
-@keyframes rainbowSweep {
+@keyframes rainbowShift {
   0% {
-    text-shadow: -200px 0 25px red;
-  }
-  14% {
-    text-shadow: 200px 0 25px red;
-  }
-
-  15% {
-    text-shadow: -200px 0 25px orange;
-  }
-  28% {
-    text-shadow: 200px 0 25px orange;
+    text-shadow:
+      -40px 0 20px red,
+      -20px 0 20px orange,
+        0px 0 20px yellow,
+       20px 0 20px green,
+       40px 0 20px blue,
+       60px 0 20px indigo,
+       80px 0 20px violet;
   }
 
-  29% {
-    text-shadow: -200px 0 25px yellow;
-  }
-  42% {
-    text-shadow: 200px 0 25px yellow;
-  }
-
-  43% {
-    text-shadow: -200px 0 25px green;
-  }
-  57% {
-    text-shadow: 200px 0 25px green;
-  }
-
-  58% {
-    text-shadow: -200px 0 25px blue;
-  }
-  71% {
-    text-shadow: 200px 0 25px blue;
-  }
-
-  72% {
-    text-shadow: -200px 0 25px indigo;
-  }
-  85% {
-    text-shadow: 200px 0 25px indigo;
-  }
-
-  86% {
-    text-shadow: -200px 0 25px violet;
-  }
   100% {
-    text-shadow: 200px 0 25px violet;
+    text-shadow:
+       80px 0 20px red,
+       60px 0 20px orange,
+       40px 0 20px yellow,
+       20px 0 20px green,
+        0px 0 20px blue,
+      -20px 0 20px indigo,
+      -40px 0 20px violet;
   }
 }
