@@ -60,7 +60,11 @@ h1 {
   font-size: 90px;
   font-weight: bold;
   color: white; 
-  text-shadow: 15px 15px 8px red; 
+  text-shadow: 
+        1px 1px 10px #8c00ff,
+        -1px -1px 10px #ff00f2,
+        -1px 1px 10px #1e00ff,
+        1px -1px 10px #00f2ff;
   animation: rainbowHue 5s linear infinite;
 }
 
