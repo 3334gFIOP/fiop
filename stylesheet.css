@@ -97,7 +97,7 @@ h1 {
   font-weight: bold;
   color: white; 
   position: relative;
-  animation: rainbowShadow 5s linear infinite;
+  animation: rainbowFlow 5s linear infinite;
 }
 
 .rainbow-text3::after {
