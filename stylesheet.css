@@ -92,63 +92,22 @@ h1 {
   100% { background-position: 100% 0%; }
 }
 
-.rainbow-glow {
+.rainbow-text3 {
   font-size: 60px;
   font-weight: bold;
-  color: white; /* Base text color */
+  color: white; /* Text itself stays white */
   text-align: center;
-  animation: rainbowShadow 5s linear infinite;
+  animation: rainbowGlow 5s linear infinite;
 }
 
-/* Create moving RGB shadow on all sides */
-@keyframes rainbowShadow {
-  0% {
-    text-shadow:
-      0 0 5px red,
-      0 0 10px red,
-      0 0 15px red,
-      0 0 20px red;
-  }
-  16% {
-    text-shadow:
-      0 0 5px orange,
-      0 0 10px orange,
-      0 0 15px orange,
-      0 0 20px orange;
-  }
-  33% {
-    text-shadow:
-      0 0 5px yellow,
-      0 0 10px yellow,
-      0 0 15px yellow,
-      0 0 20px yellow;
-  }
-  50% {
-    text-shadow:
-      0 0 5px green,
-      0 0 10px green,
-      0 0 15px green,
-      0 0 20px green;
-  }
-  66% {
-    text-shadow:
-      0 0 5px blue,
-      0 0 10px blue,
-      0 0 15px blue,
-      0 0 20px blue;
-  }
-  83% {
-    text-shadow:
-      0 0 5px indigo,
-      0 0 10px indigo,
-      0 0 15px indigo,
-      0 0 20px indigo;
-  }
-  100% {
-    text-shadow:
-      0 0 5px violet,
-      0 0 10px violet,
-      0 0 15px violet,
-      0 0 20px violet;
-  }
+@keyframes rainbowGlow {
+  0%   { text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red, 0 0 20px red; }
+  14%  { text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 20px orange; }
+  28%  { text-shadow: 0 0 5px yellow, 0 0 10px yellow, 0 0 15px yellow, 0 0 20px yellow; }
+  42%  { text-shadow: 0 0 5px green, 0 0 10px green, 0 0 15px green, 0 0 20px green; }
+  57%  { text-shadow: 0 0 5px blue, 0 0 10px blue, 0 0 15px blue, 0 0 20px blue; }
+  71%  { text-shadow: 0 0 5px indigo, 0 0 10px indigo, 0 0 15px indigo, 0 0 20px indigo; }
+  85%  { text-shadow: 0 0 5px violet, 0 0 10px violet, 0 0 15px violet, 0 0 20px violet; }
+  100% { text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red, 0 0 20px red; }
 }
+
