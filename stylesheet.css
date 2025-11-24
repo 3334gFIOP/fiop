@@ -66,7 +66,7 @@ h1 {
       -1px -1px 10px red,
       -1px 1px 10px red,
       1px -1px 10px red;
-  animation: hueRotate 5s linear infinite;
+  animation: hueRotate 2s linear infinite;
 }
 
 @keyframes hueRotate {
