@@ -91,21 +91,3 @@ h1 {
   0% { background-position: 0% 0%; }
   100% { background-position: 100% 0%; }
 }
-
-.rainbow-text3 {
-  font-size: 60px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  animation: segmentSlide 7s linear infinite;
-}
-
-@keyframes segmentSlide {
-  0%,14%   { text-shadow: 0 0 25px red; }
-  14.1%,28% { text-shadow: 0 0 25px orange; }
-  28.1%,42% { text-shadow: 0 0 25px yellow; }
-  42.1%,56% { text-shadow: 0 0 25px green; }
-  56.1%,70% { text-shadow: 0 0 25px blue; }
-  70.1%,85% { text-shadow: 0 0 25px indigo; }
-  85.1%,100% { text-shadow: 0 0 25px violet; }
-}
