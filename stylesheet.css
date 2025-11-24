@@ -95,30 +95,40 @@ h1 {
 .rainbow-text3 {
   font-size: 60px;
   font-weight: bold;
-  color: white; 
+  color: white;
   text-align: center;
-  animation: rainbowSlide 5s linear infinite;
+  animation: rainbowFlow 5s linear infinite;
 }
 
-@keyframes rainbowSlide {
+@keyframes rainbowFlow {
   0% {
-    text-shadow: 
-      -40px 0 10px red,
+    text-shadow:
+      -30px 0 10px red,
       -20px 0 10px orange,
-       0px 0 10px yellow,
-       20px 0 10px green,
-       40px 0 10px blue,
-       60px 0 10px indigo,
-       80px 0 10px violet;
+      -10px 0 10px yellow,
+       0px 0 10px green,
+      10px 0 10px blue,
+      20px 0 10px indigo,
+      30px 0 10px violet;
+  }
+  50% {
+    text-shadow:
+       30px 0 10px red,
+       20px 0 10px orange,
+       10px 0 10px yellow,
+        0px 0 10px green,
+      -10px 0 10px blue,
+      -20px 0 10px indigo,
+      -30px 0 10px violet;
   }
   100% {
-    text-shadow: 
-       80px 0 10px red,
-       60px 0 10px orange,
-       40px 0 10px yellow,
-       20px 0 10px green,
-        0px 0 10px blue,
-      -20px 0 10px indigo,
-      -40px 0 10px violet;
+    text-shadow:
+      -30px 0 10px red,
+      -20px 0 10px orange,
+      -10px 0 10px yellow,
+       0px 0 10px green,
+      10px 0 10px blue,
+      20px 0 10px indigo,
+      30px 0 10px violet;
   }
 }
