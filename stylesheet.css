@@ -84,10 +84,10 @@ h1 {
   background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
   background-size: 300% 100%;
   -webkit-text-fill-color: transparent;
-  animation: rainbowFlow 5s linear infinite;
+  animation: rainbowFlow1 5s linear infinite;
 }
 
-@keyframes rainbowFlow {
+@keyframes rainbowFlow1 {
   0% { background-position: 0% 0%; }
   100% { background-position: 100% 0%; }
 }
