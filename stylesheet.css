@@ -97,18 +97,15 @@ h1 {
   font-weight: bold;
   color: white;
   text-align: center;
-  text-shadow:
-    0 0 20px red,
-    0 0 40px orange,
-    0 0 60px yellow,
-    0 0 80px green,
-    0 0 100px blue,
-    0 0 120px indigo,
-    0 0 140px violet;
-  animation: hueShift 5s linear infinite;
+  animation: segmentSlide 7s linear infinite;
 }
 
-@keyframes hueShift {
-  0% {filter: hue-rotate(0deg);}
-  100% {filter: hue-rotate(360deg);}
+@keyframes segmentSlide {
+  0%,14%   { text-shadow: 0 0 25px red; }
+  14.1%,28% { text-shadow: 0 0 25px orange; }
+  28.1%,42% { text-shadow: 0 0 25px yellow; }
+  42.1%,56% { text-shadow: 0 0 25px green; }
+  56.1%,70% { text-shadow: 0 0 25px blue; }
+  70.1%,85% { text-shadow: 0 0 25px indigo; }
+  85.1%,100% { text-shadow: 0 0 25px violet; }
 }
