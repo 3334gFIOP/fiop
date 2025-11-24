@@ -97,38 +97,56 @@ h1 {
   font-weight: bold;
   color: white;
   text-align: center;
-  animation: rainbowFlow 5s linear infinite;
+  animation: rainbowSweep 6s linear infinite;
 }
 
-@keyframes rainbowFlow {
+@keyframes rainbowSweep {
   0% {
-    text-shadow:
-      -30px 0 10px red,
-      -20px 0 10px orange,
-      -10px 0 10px yellow,
-       0px 0 10px green,
-      10px 0 10px blue,
-      20px 0 10px indigo,
-      30px 0 10px violet;
+    text-shadow: -200px 0 25px red;
   }
-  50% {
-    text-shadow:
-       30px 0 10px red,
-       20px 0 10px orange,
-       10px 0 10px yellow,
-        0px 0 10px green,
-      -10px 0 10px blue,
-      -20px 0 10px indigo,
-      -30px 0 10px violet;
+  14% {
+    text-shadow: 200px 0 25px red;
+  }
+
+  15% {
+    text-shadow: -200px 0 25px orange;
+  }
+  28% {
+    text-shadow: 200px 0 25px orange;
+  }
+
+  29% {
+    text-shadow: -200px 0 25px yellow;
+  }
+  42% {
+    text-shadow: 200px 0 25px yellow;
+  }
+
+  43% {
+    text-shadow: -200px 0 25px green;
+  }
+  57% {
+    text-shadow: 200px 0 25px green;
+  }
+
+  58% {
+    text-shadow: -200px 0 25px blue;
+  }
+  71% {
+    text-shadow: 200px 0 25px blue;
+  }
+
+  72% {
+    text-shadow: -200px 0 25px indigo;
+  }
+  85% {
+    text-shadow: 200px 0 25px indigo;
+  }
+
+  86% {
+    text-shadow: -200px 0 25px violet;
   }
   100% {
-    text-shadow:
-      -30px 0 10px red,
-      -20px 0 10px orange,
-      -10px 0 10px yellow,
-       0px 0 10px green,
-      10px 0 10px blue,
-      20px 0 10px indigo,
-      30px 0 10px violet;
+    text-shadow: 200px 0 25px violet;
   }
 }
