@@ -62,10 +62,10 @@ h1 {
   color: white;
   display: inline-block;
   text-shadow:
-      10px 10px 10px red,
-      -10px -10px 10px red,
-      -10px 10px 10px red,
-      10px -10px 10px red;
+      5px 5px 10px red,
+      -5px -5px 10px red,
+      -5px 5px 10px red,
+      5px -5px 10px red;
   animation: hueRotate 5s linear infinite;
 }
 
