@@ -59,16 +59,28 @@ h1 {
 .rainbow-shadow {
   font-size: 90px;
   font-weight: bold;
-  color: white; 
+  color: white;
   text-shadow: 
-        1px 1px 10px #8c00ff,
-        -1px -1px 10px #ff00f2,
-        -1px 1px 10px #1e00ff,
-        1px -1px 10px #00f2ff;
+        15px 15px 10px hsl(0, 100%, 50%),
+        -15px -15px 10px hsl(120, 100%, 50%),
+        -15px 15px 10px hsl(240, 100%, 50%),
+        15px -15px 10px hsl(60, 100%, 50%);
   animation: rainbowHue 5s linear infinite;
 }
 
 @keyframes rainbowHue {
-  0%   { text-shadow: 15px 15px 8px hsl(0, 100%, 50%); }
-  100% { text-shadow: 15px 15px 8px hsl(360, 100%, 50%); }
+  0% {
+    text-shadow: 
+        15px 15px 10px hsl(0, 100%, 50%),
+        -15px -15px 10px hsl(120, 100%, 50%),
+        -15px 15px 10px hsl(240, 100%, 50%),
+        15px -15px 10px hsl(60, 100%, 50%);
+  }
+  100% {
+    text-shadow: 
+        15px 15px 10px hsl(360, 100%, 50%),
+        -15px -15px 10px hsl(480, 100%, 50%),
+        -15px 15px 10px hsl(600, 100%, 50%),
+        15px -15px 10px hsl(420, 100%, 50%);
+  }
 }
