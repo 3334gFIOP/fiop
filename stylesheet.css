@@ -83,7 +83,7 @@ h1 {
   font-weight: bold;
   background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
   background-size: 300% 100%;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: white;
   animation: rainbowFlow1 5s linear infinite;
 }
 
