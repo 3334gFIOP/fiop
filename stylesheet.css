@@ -84,11 +84,11 @@ h1 {
       -1px -1px 10px white,
       -1px 1px 10px white,
       1px -1px 10px white;
-  animation: strobe 0.2s linear infinite;
+  animation: strobe 0.5s linear infinite;
 }
 
 @keyframes strobe {
-  0%   { filter: brightness(0); }   /* black */
-  50%  { filter: brightness(2); }   /* bright white */
-  100% { filter: brightness(0); }   /* black */
+  0%   { filter: brightness(0); }
+  50%  { filter: brightness(2); }  
+  100% { filter: brightness(0); }  
 }
