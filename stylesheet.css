@@ -55,16 +55,6 @@ h1 {
         1px -1px 10px #00f2ff;
 }
 
-.outlined-text2 {
-    font-family: Arial, sans-serif;
-    color: white;
-    text-shadow: 
-        1px 1px 5px #8c00ff,
-        -1px -1px 5px #ff00f2,
-        -1px 1px 5px #1e00ff,
-        1px -1px 5px #00f2ff;
-}
-
 
 .rainbow-shadow {
   font-size: 90px;
