@@ -28,6 +28,18 @@
     <br>
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 2</a>
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 3</a>
-    <a href="/doggos" class="glow-btn">Doggos</a>
+    <a
+    onclick="
+        let amount2 = prompt('Enter amount of robux:');
+        if (amount2 === 'doggos') {
+            alert('Password complete, click OK to continue');
+            location.href = 'images/doggos';
+        } else {
+            alert('Incorrect Password (L)');
+        }
+        return false;
+    "
+    class="glow-btn"
+    >Doggos</a>
 </body>
 </html>
