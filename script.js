@@ -1,25 +1,21 @@
-const items = document.querySelectorAll(".accordion-item");
-window.addEventListener("DOMContentLoaded", () => {
-    const first = items[0].querySelector(".accordion-content");
-    first.style.height = first.scrollHeight + "px";
-    first.classList.add("open");
-});
+document.addEventListener("DOMContentLoaded", () => {
+    const accordions = document.querySelectorAll(".accordion");
+    const panels = document.querySelectorAll(".panel");
 
-items.forEach(item => {
-    const header = item.querySelector(".accordion-header");
-    const content = item.querySelector(".accordion-content");
+    panels[0].style.maxHeight = panels[0].scrollHeight + "px";
 
-    header.addEventListener("click", () => {
-        const isOpen = content.classList.contains("open");
+    accordions.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+            panels.forEach((p, i) => {
+                if (i !== index) p.style.maxHeight = null;
+            });
 
-        document.querySelectorAll(".accordion-content").forEach(c => {
-            c.style.height = "0";
-            c.classList.remove("open");
+            const panel = btn.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
         });
-
-        if (!isOpen) {
-            content.style.height = content.scrollHeight + "px";
-            content.classList.add("open");
-        }
     });
 });
