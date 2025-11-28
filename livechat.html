@@ -11,8 +11,8 @@
             color: white;
             margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: left;
+            align-items: left;
             height: 100vh;
             flex-direction: column;
         }
@@ -27,7 +27,7 @@
             flex: 1;
             padding: 10px;
             overflow-y: auto;
-            border-bottom: 1px solid #555;
+            border-bottom: 1px solid #38344a;
         }
         #message-input, #name-input {
             padding: 10px;
@@ -39,13 +39,13 @@
         #send-btn, #set-name-btn {
             padding: 10px;
             border: none;
-            background: #555;
+            background: #23002d;
             color: white;
             cursor: pointer;
             margin-bottom: 5px;
         }
         #send-btn:hover, #set-name-btn:hover {
-            background: #777;
+            background: #000000;
         }
         .message {
             margin-bottom: 10px;
@@ -60,7 +60,7 @@
 <body class="chat-page">
     <h1 class="outlined-text">Chat</h1>
     <p>Live Chat Test:</p>
-    <input type="text" id="name-input" placeholder="Enter your name">
+    <input style="width: 200px;" type="text" id="name-input" placeholder="Enter your name">
     <button id="set-name-btn">Set Name</button>
     <div id="chat-container">
         <div id="messages"></div>
