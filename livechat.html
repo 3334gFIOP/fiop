@@ -9,6 +9,12 @@
             font-family: Arial, sans-serif;
             background: #222;
             color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
         #chat-container {
             width: 400px;
@@ -16,7 +22,6 @@
             border: 1px solid #555;
             display: flex;
             flex-direction: column;
-            margin-bottom: 20px;
         }
         #messages {
             flex: 1;
@@ -24,20 +29,22 @@
             overflow-y: auto;
             border-bottom: 1px solid #555;
         }
-        #message-input {
+        #message-input, #name-input {
             padding: 10px;
             border: none;
             width: 100%;
             box-sizing: border-box;
+            margin-bottom: 5px;
         }
-        #send-btn {
+        #send-btn, #set-name-btn {
             padding: 10px;
             border: none;
             background: #555;
             color: white;
             cursor: pointer;
+            margin-bottom: 5px;
         }
-        #send-btn:hover {
+        #send-btn:hover, #set-name-btn:hover {
             background: #777;
         }
         .message {
@@ -53,45 +60,67 @@
 <body class="chat-page">
     <h1 class="outlined-text">Chat</h1>
     <p>Live Chat Test:</p>
-    <br>
+    <input type="text" id="name-input" placeholder="Enter your name">
+    <button id="set-name-btn">Set Name</button>
     <div id="chat-container">
         <div id="messages"></div>
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button id="send-btn">Send</button>
+        <input type="text" id="message-input" placeholder="Type a message..." disabled>
+        <button id="send-btn" disabled>Send</button>
     </div>
-    <br><br><br><br>
     <a href="https://fiop.dev" class="glow-btn">Back to home</a>
     <script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
     <script>
         const CLIENT_ID = '6J1HwHleZ1C79oUB';
-        function getRandomName() {
-            const adjs = ["autumn","hidden","bitter","misty","silent","empty","dry","dark","summer"];
-            const nouns = ["waterfall","river","breeze","moon","rain","wind","sea","morning","snow"];
-            return adjs[Math.floor(Math.random()*adjs.length)] + "_" + nouns[Math.floor(Math.random()*nouns.length)];
+        let username = '';
+        const badWords = ["arsehole","asshat","asshole","bastard","big black cock","bitch","bloody","blowjob","bollocks","bugger","bullshit","chicken shit","ching chong","clusterfuck","cock","cocksucker","coonass","cornhole","cox–zucker machine","cracker","crap","cunt","dick","dumbass","enshittification","faggot","feck","fuck","fuck her right in the pussy","fuck joe biden","fuck, marry, kill","fuckery","grab 'em by the pussy","healslut","if you see kay","jesus fucking christ","kike","motherfucker","nigga","nigger","pajeet","paki","poof","poofter","prick","pussy","ratfucking","retard","russian warship, go fuck yourself","serving cunt","shit","shit happens","shithouse","shitposting","shitter","shut the fuck up","shut the hell up","slut","son of a bitch","spic","taking the piss","twat","unclefucker","wanker","whore"];
+
+
+        function cleanText(text) {
+            let clean = text.toLowerCase();
+            badWords.forEach(word => { clean = clean.replace(new RegExp(word, 'gi'), '****'); });
+            return clean;
         }
+
         function getRandomColor() {
             return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
         }
-        const drone = new ScaleDrone(CLIENT_ID, {data: {name: getRandomName(), color: getRandomColor()}});
-        let members = [];
-        drone.on('open', error => {
-            if (error) return console.error(error);
-            const room = drone.subscribe('observable-room');
-            room.on('open', error => { if(error) return console.error(error); });
-            room.on('members', m => { members = m; });
-            room.on('member_join', member => { members.push(member); });
-            room.on('member_leave', ({id}) => { const index = members.findIndex(member => member.id===id); if(index!==-1) members.splice(index,1); });
-            room.on('data', (text, member) => { if(member) addMessageToListDOM(text, member); });
-            document.getElementById('send-btn').addEventListener('click', sendMessage);
-            document.getElementById('message-input').addEventListener('keydown', e => { if(e.key==='Enter') sendMessage(); });
-            function sendMessage() {
-                const input = document.getElementById('message-input');
-                const value = input.value.trim();
-                if(!value) return;
-                input.value = '';
-                drone.publish({room:'observable-room', message:value});
-            }
+
+        let drone, members = [];
+
+        document.getElementById('set-name-btn').addEventListener('click', () => {
+            const nameInput = document.getElementById('name-input').value.trim();
+            if(!nameInput) return;
+            username = cleanText(nameInput);
+            drone = new ScaleDrone(CLIENT_ID, {data: {name: username, color: getRandomColor()}});
+            setupChat();
+            document.getElementById('message-input').disabled = false;
+            document.getElementById('send-btn').disabled = false;
+            document.getElementById('name-input').disabled = true;
+            document.getElementById('set-name-btn').disabled = true;
         });
+
+        function setupChat() {
+            drone.on('open', error => {
+                if(error) return console.error(error);
+                const room = drone.subscribe('observable-room');
+                room.on('open', error => { if(error) return console.error(error); });
+                room.on('members', m => { members = m; });
+                room.on('member_join', member => { members.push(member); });
+                room.on('member_leave', ({id}) => { const index = members.findIndex(member => member.id===id); if(index!==-1) members.splice(index,1); });
+                room.on('data', (text, member) => { if(member) addMessageToListDOM(cleanText(text), member); });
+                document.getElementById('send-btn').addEventListener('click', sendMessage);
+                document.getElementById('message-input').addEventListener('keydown', e => { if(e.key==='Enter') sendMessage(); });
+            });
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const value = input.value.trim();
+            if(!value) return;
+            input.value = '';
+            drone.publish({room:'observable-room', message: value});
+        }
+
         function createMemberElement(member) {
             const el = document.createElement('span');
             el.textContent = member.clientData.name + ": ";
@@ -99,6 +128,7 @@
             el.className = 'member';
             return el;
         }
+
         function addMessageToListDOM(text, member) {
             const messagesEl = document.getElementById('messages');
             const messageEl = document.createElement('div');
