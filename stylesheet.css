@@ -233,3 +233,47 @@ h1 {
 .panel.open {
     margin-bottom: 10px;
 }
+
+.chat-page {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #222;
+    color: white;
+}
+
+.chat-page #chat-container {
+    width: 400px;
+    height: 500px;
+    border: 1px solid #555;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-page #messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    border-bottom: 1px solid #555;
+}
+
+.chat-page #message-input {
+    padding: 10px;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chat-page #send-btn {
+    padding: 10px;
+    border: none;
+    background: #555;
+    color: white;
+    cursor: pointer;
+}
+
+.chat-page #send-btn:hover {
+    background: #777;
+}

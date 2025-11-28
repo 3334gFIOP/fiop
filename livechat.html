@@ -7,10 +7,18 @@
         p {color: #fff; }
     </style>
 </head>
-<body>
+<body class="chat=page">
     <h1 class="outlined-text">Chat</h1>
     <p>Live Chat Test:</p>
     <br>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-btn">Send</button>
+    </div>
     <a href="https://fiop.dev" class="glow-btn">Back to home</a>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
