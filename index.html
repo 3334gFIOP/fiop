@@ -44,7 +44,13 @@
         else {alert('Incorrect Password (L)');}
         return false;" class="glow-btn">Password Test</a>
     <a href="/changelog" class="glow-btn">Changelog</a>
-
+    <a onclick="
+        let amount4 = prompt('Enter Password:');
+        if (amount4 === 'actualpassword123') {
+            alert('Password correct, press enter to continue');
+            location.href = '/livechat';} 
+        else {alert('Incorrect Password (L)');}
+        return false;" class="glow-btn">Chat</a>
 
 </body>
 </html>
