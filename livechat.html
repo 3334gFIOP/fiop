@@ -18,14 +18,12 @@
         h1 { margin-left: 10px; }
         p { color: #fff; margin-left: 10px; }
 
-        /* Wrapper containing chat and user list */
         #chat-wrapper {
             display: flex;
             gap: 20px;
             margin-left: 10px;
         }
 
-        /* Chat Box */
         #chat-container {
             width: 400px;
             height: 500px;
@@ -69,7 +67,6 @@
             margin-right: 5px;
         }
 
-        /* User List Sidebar */
         #user-list {
             width: 180px;
             height: 480px;
@@ -90,14 +87,19 @@
     </style>
 </head>
 <body class="chat-page">
+
     <h1 class="outlined-text">Chat</h1>
     <p>Live Chat Test:</p>
 
-    <input style="width: 200px; margin-left:10px;" type="text" id="name-input" placeholder="Enter your name">
-    <button id="set-name-btn" style="margin-left:10px;">Set Name</button>
+    <!-- Name + Color input -->
+    <div style="margin-left:10px; margin-bottom: 10px;">
+        <input style="width: 200px;" type="text" id="name-input" placeholder="Enter your name">
+        <input type="color" id="color-input" value="#ff6600" style="margin-left: 5px; width: 40px; height: 40px; padding:0; border:none;">
+        <button id="set-name-btn">Set Name</button>
+    </div>
 
     <div id="chat-wrapper">
-        <!-- CHAT BOX -->
+
         <div id="chat-container">
             <div id="messages"></div>
             <input type="text" id="message-input" placeholder="Type a message..." disabled>
@@ -107,14 +109,20 @@
         <div id="user-list">
             <h3>Online Users</h3>
         </div>
+
     </div>
+
     <br><br>
     <a href="https://fiop.dev" class="glow-btn" style="margin-left:10px;">Back to home</a>
 
     <script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
     <script>
         const CLIENT_ID = '6J1HwHleZ1C79oUB';
-        let username = '';
+
+        let username = "";
+        let userColor = "";
+        let drone;
+        let members = [];
 
         const badWords = [
             "arsehole","asshat","asshole","bastard","big black cock","bitch","bloody","blowjob","bollocks",
@@ -130,26 +138,21 @@
 
         function cleanText(text) {
             let clean = text.toLowerCase();
-            badWords.forEach(word => {
-                clean = clean.replace(new RegExp(word, "gi"), "****");
-            });
+            badWords.forEach(word => clean = clean.replace(new RegExp(word, "gi"), "****"));
             return clean;
         }
 
-        function getRandomColor() {
-            return "#" + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-        }
-
-        let drone, members = [];
-
         document.getElementById("set-name-btn").addEventListener("click", () => {
             const nameInput = document.getElementById("name-input").value.trim();
+            const colorInput = document.getElementById("color-input").value;
+
             if (!nameInput) return;
 
             username = cleanText(nameInput);
+            userColor = colorInput;
 
             drone = new ScaleDrone(CLIENT_ID, {
-                data: { name: username, color: getRandomColor() }
+                data: { name: username, color: userColor }
             });
 
             setupChat();
@@ -157,6 +160,7 @@
             document.getElementById("message-input").disabled = false;
             document.getElementById("send-btn").disabled = false;
             document.getElementById("name-input").disabled = true;
+            document.getElementById("color-input").disabled = true;
             document.getElementById("set-name-btn").disabled = true;
         });
 
@@ -165,10 +169,6 @@
                 if (error) return console.error(error);
 
                 const room = drone.subscribe("observable-room");
-
-                room.on("open", error => {
-                    if (error) return console.error(error);
-                });
 
                 room.on("members", m => {
                     members = m;
@@ -181,18 +181,13 @@
                 });
 
                 room.on("member_leave", ({ id }) => {
-                    const index = members.findIndex(member => member.id === id);
+                    const index = members.findIndex(m => m.id === id);
                     if (index !== -1) members.splice(index, 1);
                     updateUserList();
                 });
 
                 room.on("data", (text, member) => {
                     if (member) addMessageToListDOM(cleanText(text), member);
-                });
-
-                document.getElementById("send-btn").addEventListener("click", sendMessage);
-                document.getElementById("message-input").addEventListener("keydown", e => {
-                    if (e.key === "Enter") sendMessage();
                 });
             });
         }
@@ -228,7 +223,6 @@
 
         function updateUserList() {
             const list = document.getElementById("user-list");
-
             list.innerHTML = "<h3>Online Users</h3>";
 
             members.forEach(member => {
@@ -236,9 +230,20 @@
                 el.className = "user-item";
                 el.textContent = member.clientData.name;
                 el.style.color = member.clientData.color;
+
+                // Highlight yourself
+                if (member.clientData.name === username) {
+                    el.classList.add("outlined-text");
+                }
+
                 list.appendChild(el);
             });
         }
+
+        document.getElementById("send-btn").addEventListener("click", sendMessage);
+        document.getElementById("message-input").addEventListener("keydown", e => {
+            if (e.key === "Enter") sendMessage();
+        });
     </script>
 </body>
 </html>
