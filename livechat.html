@@ -2,31 +2,59 @@
 <html>
 <head>
     <title>Chat</title>
+    <link rel="icon" href="images/icon.png" type="image/png" />
+    <link rel="stylesheet" href="stylesheet.css">
+
     <style>
-        /* ========== GENERAL PAGE STYLE ========== */
-        body {
-            background: #0a0a0a;
+        body.chat-page {
             font-family: Arial, sans-serif;
+            background: #222;
             color: white;
             margin: 0;
-            padding: 0;
-        }
-
-        /* Align name + color picker */
-        #user-setup {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            margin-top: 20px;
+            height: 100vh;
         }
 
-        #username-input {
-            padding: 8px;
-            font-size: 16px;
-            border: 2px solid #444;
+        #chat-container {
+            width: 60%;
+            height: 80%;
+            background: #333;
+            border-radius: 10px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        #messages {
+            height: 60%;
+            overflow-y: scroll;
+            background: #222;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        #online-users {
+            height: 20%;
+            overflow-y: scroll;
+            background: #111;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        #user-setup { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+
+        #name-input {
+            width: 180px; 
+            padding: 10px;
             border-radius: 6px;
-            width: 160px;
+            border: 2px solid #444;
             background: #111;
             color: white;
         }
@@ -34,261 +62,167 @@
         #color-picker {
             width: 45px;
             height: 45px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .glow-btn {
+            display: block;
+            margin-top: 8px; 
+            padding: 10px 30px; 
+            font-size: 18px;
+            background: #111;
             border: 2px solid #444;
             border-radius: 6px;
-            cursor: pointer;
-            background: #111;
-        }
-
-        /* GLOW BUTTON */
-        #set-name-btn {
-            display: block;
-            margin: 12px auto 20px auto;
-            font-size: 20px;
             color: white;
-            padding: 15px 40px;
-            background: #111;
-            border-radius: 4px;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            text-align: center;
-            border: none;
-        }
-
-        #set-name-btn::before {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            border-radius: inherit;
-            background: linear-gradient(45deg, #8a2cff, #3bb2ff);
-            z-index: -1;
-        }
-
-        #set-name-btn::after {
-            content: "";
-            position: absolute;
-            inset: -8px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, #8a2cff, #3bb2ff);
-            filter: blur(4px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -2;
-        }
-
-        #set-name-btn:hover::after {
-            opacity: 0.7;
-        }
-
-        /* Outlined text (your own name in list) */
-        .outlined-text {
-            text-shadow:
-                1px 1px 10px #8c00ff,
-                -1px -1px 10px #ff00f2,
-                -1px 1px 10px #1e00ff,
-                1px -1px 10px #00f2ff;
-        }
-
-        /* Chat Container */
-        #chat-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        #chat-container {
-            width: 400px;
-            height: 500px;
-            border: 1px solid #555;
-            display: flex;
-            flex-direction: column;
-            background: #111;
-        }
-
-        #messages {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            border-bottom: 1px solid #555;
-        }
-
-        #message-input {
-            padding: 10px;
-            border: none;
-            width: 100%;
-            background: #222;
-            color: white;
-            box-sizing: border-box;
-        }
-
-        #send-btn {
-            padding: 10px;
-            border: none;
-            background: #555;
-            color: white;
-            cursor: pointer;
-        }
-
-        #send-btn:hover {
-            background: #777;
-        }
-
-        /* Online user list */
-        #user-list {
-            width: 180px;
-            height: 500px;
-            border: 1px solid #555;
-            background: #111;
-            padding: 10px;
-            overflow-y: auto;
-        }
-
-        .user-item {
-            margin-bottom: 8px;
             font-weight: bold;
+            text-shadow: 0 0 4px #00ffff;
+            box-shadow: 0 0 10px #00ffff80;
+            cursor: pointer;
+            transition: 0.2s ease;
         }
 
-        #username-display {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 18px;
+        .glow-btn:hover {
+            background: #222;
+            box-shadow: 0 0 14px #00ffffcc;
+            text-shadow: 0 0 6px #00ffff;
+        }
+
+        .outlined-text {
+            border: 2px solid #00ffff;
+            padding: 3px 5px;
+            border-radius: 4px;
+            background: rgba(0, 255, 255, 0.1);
         }
     </style>
+
+    <script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
 </head>
-<body>
 
-<h1 style="text-align:center;" class="outlined-text">Nightfall Chat</h1>
+<body class="chat-page">
 
-<!-- Username + Color Picker -->
-<div id="user-setup">
-    <input id="username-input" type="text" placeholder="Enter username...">
-    <input id="color-picker" type="color" value="#ffffff">
-</div>
+<div id="chat-container">
 
-<!-- Set Name Button -->
-<button id="set-name-btn" class="glow-btn">Set Name</button>
-
-<div id="username-display"></div>
-
-<!-- Chat + User List -->
-<div id="chat-wrapper">
-    <div id="chat-container">
-        <div id="messages"></div>
-        <input id="message-input" type="text" placeholder="Type a message..." disabled>
-        <button id="send-btn" disabled>Send</button>
+    <!-- Username + color row -->
+    <div id="user-setup">
+        <input type="text" id="name-input" placeholder="Enter your name">
+        <input type="color" id="color-picker" value="#ffffff">
     </div>
 
-    <div id="user-list">
-        <h3>Online Users</h3>
-    </div>
+    <!-- Button under it -->
+    <button id="set-name-btn" class="glow-btn">Set Name</button>
+
+    <div id="messages"></div>
+    <input type="text" id="message-input" placeholder="Type message..." style="width:100%; padding:10px; margin-top:10px;">
+
+    <h3 style="margin-top:15px;">Online Users</h3>
+    <div id="online-users"></div>
+
 </div>
 
-<!-- ========== CHAT SCRIPT ========== -->
 <script>
-    let username = null;
+    let drone;
+    let username = "";
     let userColor = "#ffffff";
-    let members = [];
 
-    // --- Set Name Button ---
+    // When Set Name is clicked
     document.getElementById("set-name-btn").onclick = () => {
-        username = document.getElementById("username-input").value.trim();
+        username = document.getElementById("name-input").value.trim();
         userColor = document.getElementById("color-picker").value;
 
         if (!username) {
-            alert("Please enter a username!");
+            alert("Enter a name!");
             return;
         }
 
-        document.getElementById("username-display").innerText = "Welcome, " + username;
-
-        // Enable chat input now that user is named
-        document.getElementById("message-input").disabled = false;
-        document.getElementById("send-btn").disabled = false;
-
-        startChat();
+        initChat();
+        document.getElementById("set-name-btn").disabled = true;
+        document.getElementById("name-input").disabled = true;
+        document.getElementById("color-picker").disabled = true;
     };
 
-    // --- CHAT & MEMBER SYSTEM ---
-    function startChat() {
-
-        const drone = new Scaledrone("YOUR-SCALEDRONE-CHANNEL-ID", {
+    function initChat() {
+        drone = new ScaleDrone('YOUR-CHANNEL-ID', {
             data: { name: username, color: userColor }
         });
 
         drone.on('open', error => {
             if (error) return console.error(error);
-        });
 
-        const room = drone.subscribe("chat-room", { historyCount: 20 });
+            const room = drone.subscribe('observable-room');
 
-        room.on('history_message', m => addMessage(m.data, m.clientId));
-        room.on('message', m => addMessage(m.data, m.clientId));
-
-        room.on('members', m => {
-            members = m;
-            updateUserList();
-        });
-
-        room.on('member_join', m => {
-            members.push(m);
-            updateUserList();
-        });
-
-        room.on('member_leave', ({id}) => {
-            members = members.filter(m => m.id !== id);
-            updateUserList();
-        });
-
-        // Send messages
-        document.getElementById("send-btn").onclick = sendMessage;
-        document.getElementById("message-input").addEventListener("keydown", e => {
-            if (e.key === "Enter") sendMessage();
-        });
-
-        function sendMessage() {
-            const text = document.getElementById("message-input").value.trim();
-            if (text === "") return;
-
-            drone.publish({
-                room: "chat-room",
-                message: { name: username, color: userColor, text }
+            room.on('open', err => {
+                if (err) return console.error(err);
             });
 
-            document.getElementById("message-input").value = "";
-        }
+            room.on('message', message => {
+                const { data, clientId } = message;
+                addMessage(data, clientId);
+            });
 
-        function addMessage(msg) {
-            const el = document.createElement("div");
-            el.innerHTML = `<strong style="color:${msg.color}">${msg.name}:</strong> ${msg.text}`;
-            document.getElementById("messages").appendChild(el);
-            document.getElementById("messages").scrollTop = messages.scrollHeight;
-        }
+            room.on('members', members => {
+                updateUsers(members);
+            });
+
+            room.on('member_join', member => {
+                members.push(member);
+                updateUsers(members);
+            });
+
+            room.on('member_leave', member => {
+                members = members.filter(m => m.id !== member.id);
+                updateUsers(members);
+            });
+        });
     }
 
-    function updateUserList() {
-        const list = document.getElementById("user-list");
-        list.innerHTML = "<h3>Online Users</h3>";
+    let members = [];
 
-        members.forEach(member => {
+    function addMessage(data, clientId) {
+        const messages = document.getElementById("messages");
+
+        const el = document.createElement("div");
+        el.style.color = data.color;
+        el.innerHTML = `<strong>${data.name}:</strong> ${data.text}`;
+
+        messages.appendChild(el);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    // Send message
+    document.getElementById("message-input").addEventListener("keydown", e => {
+        if (e.key === "Enter" && drone) {
+            const text = e.target.value.trim();
+            if (text !== "") {
+                drone.publish({
+                    room: "observable-room",
+                    message: { name: username, color: userColor, text }
+                });
+                e.target.value = "";
+            }
+        }
+    });
+
+    // Update online user list
+    function updateUsers(list) {
+        const box = document.getElementById("online-users");
+        box.innerHTML = "";
+
+        list.forEach(member => {
             const el = document.createElement("div");
-            el.className = "user-item";
-            el.textContent = member.clientData.name;
             el.style.color = member.clientData.color;
+            el.textContent = member.clientData.name;
 
-            // Highlight your own name
             if (member.clientData.name === username) {
                 el.classList.add("outlined-text");
             }
 
-            list.appendChild(el);
+            box.appendChild(el);
         });
     }
 </script>
-
-<!-- Scaledrone stuff -->
-<script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
 
 </body>
 </html>
