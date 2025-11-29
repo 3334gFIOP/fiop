@@ -18,7 +18,7 @@
         h1 { margin-left: 10px; }
         p { color: #fff; margin-left: 10px; }
 
-        /* Wrapper containing chat + user list */
+        /* Wrapper containing chat and user list */
         #chat-wrapper {
             display: flex;
             gap: 20px;
@@ -58,7 +58,7 @@
             margin-bottom: 0px;
         }
         #send-btn:hover, #set-name-btn:hover {
-            background: #000;
+            background: #46005a;
         }
 
         .message {
@@ -72,7 +72,7 @@
         /* User List Sidebar */
         #user-list {
             width: 180px;
-            height: 400px;
+            height: 500px;
             border: 1px solid #555;
             padding: 10px;
             overflow-y: auto;
@@ -104,12 +104,11 @@
             <button id="send-btn" disabled>Send</button>
         </div>
 
-        <!-- ONLINE USER LIST -->
         <div id="user-list">
             <h3>Online Users</h3>
         </div>
     </div>
-
+    <br><br>
     <a href="https://fiop.dev" class="glow-btn" style="margin-left:10px;">Back to home</a>
 
     <script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
