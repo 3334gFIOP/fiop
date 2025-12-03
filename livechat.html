@@ -148,8 +148,16 @@
 
             if (!nameInput) return;
 
+            // Check if the name is already taken
+            const taken = members.some(m => m.clientData.name.toLowerCase() === nameInput.toLowerCase());
+            if (taken) {
+                alert("That name is already taken. Stop trying to impersonate someone and take the L");
+                return;
+            }
+
             username = cleanText(nameInput);
             userColor = colorInput;
+
 
             drone = new ScaleDrone(CLIENT_ID, {
                 data: { name: username, color: userColor }
