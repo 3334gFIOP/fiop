@@ -19,7 +19,7 @@
         p { color: #fff; margin-left: 10px; }
 
         #chat-wrapper {
-            display: none; /* HIDDEN until user logs in */
+            display: none; /* Hidden until login */
             gap: 20px;
             margin-left: 10px;
         }
@@ -59,13 +59,8 @@
             background: #46005a;
         }
 
-        .message {
-            margin-bottom: 10px;
-        }
-        .member {
-            font-weight: bold;
-            margin-right: 5px;
-        }
+        .message { margin-bottom: 10px; }
+        .member { font-weight: bold; margin-right: 5px; }
 
         #user-list {
             width: 180px;
@@ -88,201 +83,205 @@
 </head>
 <body class="chat-page">
 
-    <h1 class="outlined-text">Chat</h1>
-    <p>Live Online Chat Thingy:</p>
+<h1 class="outlined-text">Chat</h1>
+<p>Live Online Chat Thingy:</p>
 
-    <!-- Name + Color input -->
-    <div style="margin-left:10px; margin-bottom: 10px;">
-        <input style="width: 200px;" type="text" id="name-input" placeholder="Enter your name">
-        <input type="color" id="color-input" value="#ff0000" style="margin-left: 5px; width: 30px; height: 30px; padding:0; border:none;">
-        <button id="set-name-btn">Set Name</button>
+<!-- Name + Color input -->
+<div style="margin-left:10px; margin-bottom: 10px;">
+    <input style="width: 200px;" type="text" id="name-input" placeholder="Enter your name">
+    <input type="color" id="color-input" value="#ff0000" style="margin-left: 5px; width: 30px; height: 30px; padding:0; border:none;">
+    <button id="set-name-btn">Set Name</button>
+</div>
+
+<div id="chat-wrapper">
+    <div id="chat-container">
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Type a message..." disabled>
+        <button id="send-btn" disabled>Send</button>
     </div>
 
-    <div id="chat-wrapper">
-
-        <div id="chat-container">
-            <div id="messages"></div>
-            <input type="text" id="message-input" placeholder="Type a message..." disabled>
-            <button id="send-btn" disabled>Send</button>
-        </div>
-
-        <div id="user-list">
-            <h3>Online Users</h3>
-        </div>
-
+    <div id="user-list">
+        <h3>Online Users</h3>
     </div>
+</div>
 
-    <br><br>
-    <a href="https://fiop.dev" class="glow-btn" style="margin-left:10px;">Back to home</a>
+<br><br>
+<a href="https://fiop.dev" class="glow-btn" style="margin-left:10px;">Back to home</a>
 
-    <script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
-    <script>
-        const CLIENT_ID = '6J1HwHleZ1C79oUB';
+<script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
+<script>
+    const CLIENT_ID = "6J1HwHleZ1C79oUB";
 
-        let username = "";
-        let userColor = "";
-        let drone;
-        let preloadDrone; // For preloading members
-        let members = [];
+    let username = "";
+    let userColor = "";
+    let members = [];
+    let drone;
+    let room;
 
-        const badWords = [
-            "arsehole","asshat","asshole","bastard","big black cock","bitch","bloody","blowjob","bollocks",
-            "bugger","bullshit","chicken shit","ching chong","clusterfuck","cock","cocksucker","coonass",
-            "cornhole","cox–zucker machine","cracker","crap","cunt","dick","dumbass","enshittification",
-            "faggot","feck","fuck","fuck her right in the pussy","fuck joe biden","fuck, marry, kill",
-            "fuckery","grab 'em by the pussy","healslut","if you see kay","jesus fucking christ","kike",
-            "motherfucker","nigga","nigger","pajeet","paki","poof","poofter","prick","pussy","ratfucking",
-            "retard","russian warship, go fuck yourself","serving cunt","shit","shit happens","shithouse",
-            "shitposting","shitter","shut the fuck up","shut the hell up","slut","son of a bitch","spic",
-            "taking the piss","twat","unclefucker","wanker","whore"
-        ];
+    /* BAD WORD FILTER */
+    const badWords = ["arsehole","asshat","asshole","bastard","big black cock","bitch","bloody",
+        "blowjob","bollocks","bugger","bullshit","chicken shit","ching chong","clusterfuck","cock",
+        "cocksucker","coonass","cornhole","cox–zucker machine","cracker","crap","cunt","dick","dumbass",
+        "enshittification","faggot","feck","fuck","fuck her right in the pussy","fuck joe biden",
+        "fuck, marry, kill","fuckery","grab 'em by the pussy","healslut","if you see kay",
+        "jesus fucking christ","kike","motherfucker","nigga","nigger","pajeet","paki","poof","poofter",
+        "prick","pussy","ratfucking","retard","russian warship, go fuck yourself","serving cunt","shit",
+        "shit happens","shithouse","shitposting","shitter","shut the fuck up","shut the hell up",
+        "slut","son of a bitch","spic","taking the piss","twat","unclefucker","wanker","whore"
+    ];
 
-        function cleanText(text) {
-            let clean = text.toLowerCase();
-            badWords.forEach(word => clean = clean.replace(new RegExp(word, "gi"), "****"));
-            return clean;
+    function cleanText(text) {
+        let clean = text;
+        badWords.forEach(word => {
+            clean = clean.replace(new RegExp(word, "gi"), "****");
+        });
+        return clean;
+    }
+
+    /*
+    ==========================================
+    PRELOAD MEMBERS LIST (ONE CONNECTION ONLY)
+    ==========================================
+    */
+    const preload = new ScaleDrone(CLIENT_ID);
+    preload.on("open", () => {
+        const preloadRoom = preload.subscribe("observable-room");
+
+        preloadRoom.on("members", m => {
+            members = m;
+        });
+        preloadRoom.on("member_join", m => members.push(m));
+        preloadRoom.on("member_leave", ({id}) => {
+            members = members.filter(mem => mem.id !== id);
+        });
+    });
+
+    /*
+    ==========================================
+    USER SELECTS NAME
+    ==========================================
+    */
+    document.getElementById("set-name-btn").addEventListener("click", () => {
+        const name = document.getElementById("name-input").value.trim();
+        const color = document.getElementById("color-input").value;
+
+        if (!name) return;
+
+        // Duplicate name check
+        const taken = members.some(m => m.clientData?.name?.toLowerCase() === name.toLowerCase());
+        if (taken) {
+            alert("That name is already taken.");
+            return;
         }
 
-        /* 
-        --------------------------------------
-        PRELOAD MEMBERS BEFORE LOGIN
-        --------------------------------------
-        */
-        preloadDrone = new ScaleDrone(CLIENT_ID);
-        preloadDrone.on("open", () => {
-            const room = preloadDrone.subscribe("observable-room");
+        username = cleanText(name);
+        userColor = color;
 
-            room.on("members", m => { members = m; });
-            room.on("member_join", member => { members.push(member); });
-            room.on("member_leave", ({ id }) => {
-                const index = members.findIndex(m => m.id === id);
-                if (index !== -1) members.splice(index, 1);
-            });
+        // Now start the REAL connection
+        drone = new ScaleDrone(CLIENT_ID, {
+            data: { name: username, color: userColor }
         });
 
-        /* 
-        --------------------------------------
-        USER SETS NAME
-        --------------------------------------
-        */
-        document.getElementById("set-name-btn").addEventListener("click", () => {
-            const nameInput = document.getElementById("name-input").value.trim();
-            const colorInput = document.getElementById("color-input").value;
+        connectChat();
 
-            if (!nameInput) return;
+        // unlock chat
+        document.getElementById("message-input").disabled = false;
+        document.getElementById("send-btn").disabled = false;
+        document.getElementById("chat-wrapper").style.display = "flex";
 
-            // Duplicate name check (NOW WORKS)
-            const taken = members.some(m => m.clientData.name.toLowerCase() === nameInput.toLowerCase());
-            if (taken) {
-                alert("That name is already taken. Stop trying to impersonate someone and take the L");
-                return;
-            }
+        // disable login UI
+        document.getElementById("name-input").disabled = true;
+        document.getElementById("color-input").disabled = true;
+        document.getElementById("set-name-btn").disabled = true;
+    });
 
-            username = cleanText(nameInput);
-            userColor = colorInput;
+    /*
+    ==========================================
+    REAL CHAT CONNECTION
+    ==========================================
+    */
+    function connectChat() {
+        drone.on("open", err => {
+            if (err) return console.error(err);
 
-            // Now create the REAL Scaledrone connection
-            drone = new ScaleDrone(CLIENT_ID, {
-                data: { name: username, color: userColor }
+            room = drone.subscribe("observable-room");
+
+            room.on("members", m => {
+                members = m;
+                updateUserList();
             });
 
-            setupChat();
+            room.on("member_join", m => {
+                members.push(m);
+                updateUserList();
+            });
 
-            // Enable chat + unlock UI
-            document.getElementById("message-input").disabled = false;
-            document.getElementById("send-btn").disabled = false;
-            document.getElementById("name-input").disabled = true;
-            document.getElementById("color-input").disabled = true;
-            document.getElementById("set-name-btn").disabled = true;
+            room.on("member_leave", ({id}) => {
+                members = members.filter(mem => mem.id !== id);
+                updateUserList();
+            });
 
-            // SHOW CHAT NOW
-            document.getElementById("chat-wrapper").style.display = "flex";
+            room.on("data", (msg, member) => {
+                if (!member) return;
+                addMessage(cleanText(msg), member);
+            });
         });
+    }
 
-        /* 
-        --------------------------------------
-        CONNECT REAL CHAT
-        --------------------------------------
-        */
-        function setupChat() {
-            drone.on("open", error => {
-                if (error) return console.error(error);
+    /*
+    ==========================================
+    MESSAGE + USER LIST RENDERING
+    ==========================================
+    */
+    function addMessage(text, member) {
+        const wrap = document.getElementById("messages");
+        const div = document.createElement("div");
 
-                const room = drone.subscribe("observable-room");
+        div.className = "message";
 
-                room.on("members", m => {
-                    members = m;
-                    updateUserList();
-                });
+        const name = document.createElement("span");
+        name.className = "member";
+        name.style.color = member.clientData.color;
+        name.textContent = member.clientData.name + ": ";
 
-                room.on("member_join", member => {
-                    members.push(member);
-                    updateUserList();
-                });
+        div.appendChild(name);
+        div.appendChild(document.createTextNode(text));
 
-                room.on("member_leave", ({ id }) => {
-                    const index = members.findIndex(m => m.id === id);
-                    if (index !== -1) members.splice(index, 1);
-                    updateUserList();
-                });
+        wrap.appendChild(div);
+        wrap.scrollTop = wrap.scrollHeight;
+    }
 
-                room.on("data", (text, member) => {
-                    if (member) addMessageToListDOM(cleanText(text), member);
-                });
-            });
-        }
+    function updateUserList() {
+        const list = document.getElementById("user-list");
+        list.innerHTML = "<h3>Online Users</h3>";
 
-        function sendMessage() {
-            const input = document.getElementById("message-input");
-            const value = input.value.trim();
-            if (!value) return;
-
-            input.value = "";
-            drone.publish({ room: "observable-room", message: value });
-        }
-
-        function createMemberElement(member) {
-            const el = document.createElement("span");
-            el.textContent = member.clientData.name + ": ";
-            el.style.color = member.clientData.color;
-            el.className = "member";
-            return el;
-        }
-
-        function addMessageToListDOM(text, member) {
-            const messagesEl = document.getElementById("messages");
-            const messageEl = document.createElement("div");
-
-            messageEl.className = "message";
-            messageEl.appendChild(createMemberElement(member));
-            messageEl.appendChild(document.createTextNode(text));
-
-            messagesEl.appendChild(messageEl);
-            messagesEl.scrollTop = messagesEl.scrollHeight;
-        }
-
-        function updateUserList() {
-            const list = document.getElementById("user-list");
-            list.innerHTML = "<h3>Online Users</h3>";
-
-            members.forEach(member => {
-                const el = document.createElement("div");
-                el.className = "user-item";
-                el.textContent = member.clientData.name;
-                el.style.color = member.clientData.color;
-
-                if (member.clientData.name === username) {
-                    el.classList.add("outlined-text");
-                }
-
-                list.appendChild(el);
-            });
-        }
-
-        document.getElementById("send-btn").addEventListener("click", sendMessage);
-        document.getElementById("message-input").addEventListener("keydown", e => {
-            if (e.key === "Enter") sendMessage();
+        members.forEach(m => {
+            const div = document.createElement("div");
+            div.className = "user-item";
+            div.textContent = m.clientData.name;
+            div.style.color = m.clientData.color;
+            list.appendChild(div);
         });
-    </script>
+    }
+
+    /*
+    ==========================================
+    SENDING MESSAGES
+    ==========================================
+    */
+    function sendMessage() {
+        const input = document.getElementById("message-input");
+        const value = input.value.trim();
+        if (!value) return;
+        input.value = "";
+        drone.publish({ room: "observable-room", message: value });
+    }
+
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+    document.getElementById("message-input").addEventListener("keydown", e => {
+        if (e.key === "Enter") sendMessage();
+    });
+</script>
+
 </body>
 </html>
