@@ -61,10 +61,12 @@
 
         .message { margin-bottom: 10px; }
         .member { font-weight: bold; margin-right: 5px; }
-
+        
         .system-message { 
             font-size: 0.9em; 
             font-style: italic;
+            text-align: center;
+            text-transform: uppercase;
         }
 
         #user-list {
@@ -84,14 +86,17 @@
             font-weight: bold;
             margin-bottom: 8px;
         }
+
+        .outlined-text {
+            text-shadow: 0 0 3px #fff, 0 0 5px #fff;
+        }
     </style>
 </head>
 <body class="chat-page">
 
 <h1 class="outlined-text">Chat</h1>
-<p>Live Online Chat Thingy (set name to join the chat)</p>
+<p>Live Online Chat Thingy:</p>
 
-<!-- Name + Color input -->
 <div style="margin-left:10px; margin-bottom: 10px;">
     <input style="width: 200px;" type="text" id="name-input" placeholder="Enter your name">
     <input type="color" id="color-input" value="#ff0000" style="margin-left: 5px; width: 30px; height: 30px; padding:0; border:none;">
@@ -125,15 +130,14 @@ let room;
 
 /* BAD WORD FILTER */
 const badWords = ["arsehole","asshat","asshole","bastard","big black cock","bitch","bloody",
-    "blowjob","bollocks","bugger","bullshit","chicken shit","ching chong","clusterfuck","cock",
-    "cocksucker","coonass","cornhole","cox–zucker machine","cracker","crap","cunt","dick","dumbass",
-    "enshittification","faggot","feck","fuck","fuck her right in the pussy","fuck joe biden",
-    "fuck, marry, kill","fuckery","grab 'em by the pussy","healslut","if you see kay",
-    "jesus fucking christ","kike","motherfucker","nigga","nigger","pajeet","paki","poof","poofter",
-    "prick","pussy","ratfucking","retard","russian warship, go fuck yourself","serving cunt","shit",
-    "shit happens","shithouse","shitposting","shitter","shut the fuck up","shut the hell up",
-    "slut","son of a bitch","spic","taking the piss","twat","unclefucker","wanker","whore"
-];
+"blowjob","bollocks","bugger","bullshit","chicken shit","ching chong","clusterfuck","cock",
+"cocksucker","coonass","cornhole","cox–zucker machine","cracker","crap","cunt","dick","dumbass",
+"enshittification","faggot","feck","fuck","fuck her right in the pussy","fuck joe biden",
+"fuck, marry, kill","fuckery","grab 'em by the pussy","healslut","if you see kay",
+"jesus fucking christ","kike","motherfucker","nigga","nigger","pajeet","paki","poof","poofter",
+"prick","pussy","ratfucking","retard","russian warship, go fuck yourself","serving cunt","shit",
+"shit happens","shithouse","shitposting","shitter","shut the fuck up","shut the hell up",
+"slut","son of a bitch","spic","taking the piss","twat","unclefucker","wanker","whore"];
 
 function cleanText(text) {
     let clean = text;
@@ -197,10 +201,12 @@ function connectChat() {
         });
 
         room.on("member_join", m => {
-            members.push(m);
-            updateUserList();
-            if (m.clientData && m.clientData.name !== username) {
-                addSystemMessage(`${m.clientData.name} joined the chat`, "green");
+            if (!members.some(mem => mem.id === m.id)) {
+                members.push(m);
+                updateUserList();
+                if (m.clientData && m.clientData.name !== username) {
+                    addSystemMessage(`${m.clientData.name} JOINED THE CHAT`, "green");
+                }
             }
         });
 
@@ -209,7 +215,7 @@ function connectChat() {
             members = members.filter(mem => mem.id !== id);
             updateUserList();
             if (member && member.clientData) {
-                addSystemMessage(`${member.clientData.name} left the chat`, "red");
+                addSystemMessage(`${member.clientData.name} LEFT THE CHAT`, "red");
             }
         });
 
@@ -258,7 +264,7 @@ function addSystemMessage(text, color) {
     const div = document.createElement("div");
     div.className = "system-message";
     div.style.color = color;
-    div.textContent = text;
+    div.textContent = text.toUpperCase();
     wrap.appendChild(div);
     wrap.scrollTop = wrap.scrollHeight;
 }
@@ -266,12 +272,26 @@ function addSystemMessage(text, color) {
 function updateUserList() {
     const list = document.getElementById("user-list");
     list.innerHTML = "<h3>Online Users</h3>";
+
+    const uniqueMembers = [];
+    const ids = new Set();
     members.forEach(m => {
         if (!m.clientData) return;
+        if (ids.has(m.id)) return;
+        ids.add(m.id);
+        uniqueMembers.push(m);
+    });
+
+    uniqueMembers.forEach(m => {
         const div = document.createElement("div");
         div.className = "user-item";
         div.textContent = m.clientData.name;
         div.style.color = m.clientData.color;
+
+        if (m.clientData.name === username) {
+            div.classList.add("outlined-text");
+        }
+
         list.appendChild(div);
     });
 }
