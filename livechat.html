@@ -19,7 +19,7 @@
         p { color: #fff; margin-left: 10px; }
 
         #chat-wrapper {
-            display: flex;
+            display: none; /* HIDDEN until user logs in */
             gap: 20px;
             margin-left: 10px;
         }
@@ -122,6 +122,7 @@
         let username = "";
         let userColor = "";
         let drone;
+        let preloadDrone; // For preloading members
         let members = [];
 
         const badWords = [
@@ -142,13 +143,35 @@
             return clean;
         }
 
+        /* 
+        --------------------------------------
+        PRELOAD MEMBERS BEFORE LOGIN
+        --------------------------------------
+        */
+        preloadDrone = new ScaleDrone(CLIENT_ID);
+        preloadDrone.on("open", () => {
+            const room = preloadDrone.subscribe("observable-room");
+
+            room.on("members", m => { members = m; });
+            room.on("member_join", member => { members.push(member); });
+            room.on("member_leave", ({ id }) => {
+                const index = members.findIndex(m => m.id === id);
+                if (index !== -1) members.splice(index, 1);
+            });
+        });
+
+        /* 
+        --------------------------------------
+        USER SETS NAME
+        --------------------------------------
+        */
         document.getElementById("set-name-btn").addEventListener("click", () => {
             const nameInput = document.getElementById("name-input").value.trim();
             const colorInput = document.getElementById("color-input").value;
 
             if (!nameInput) return;
 
-            // Check if the name is already taken
+            // Duplicate name check (NOW WORKS)
             const taken = members.some(m => m.clientData.name.toLowerCase() === nameInput.toLowerCase());
             if (taken) {
                 alert("That name is already taken. Stop trying to impersonate someone and take the L");
@@ -158,20 +181,29 @@
             username = cleanText(nameInput);
             userColor = colorInput;
 
-
+            // Now create the REAL Scaledrone connection
             drone = new ScaleDrone(CLIENT_ID, {
                 data: { name: username, color: userColor }
             });
 
             setupChat();
 
+            // Enable chat + unlock UI
             document.getElementById("message-input").disabled = false;
             document.getElementById("send-btn").disabled = false;
             document.getElementById("name-input").disabled = true;
             document.getElementById("color-input").disabled = true;
             document.getElementById("set-name-btn").disabled = true;
+
+            // SHOW CHAT NOW
+            document.getElementById("chat-wrapper").style.display = "flex";
         });
 
+        /* 
+        --------------------------------------
+        CONNECT REAL CHAT
+        --------------------------------------
+        */
         function setupChat() {
             drone.on("open", error => {
                 if (error) return console.error(error);
@@ -239,7 +271,6 @@
                 el.textContent = member.clientData.name;
                 el.style.color = member.clientData.color;
 
-                // Highlight yourself
                 if (member.clientData.name === username) {
                     el.classList.add("outlined-text");
                 }
