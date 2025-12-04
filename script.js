@@ -27,3 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+function showPage(pageID) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    // Show selected page
+    document.getElementById(pageID).classList.add('active');
+}
