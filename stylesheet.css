@@ -8,10 +8,6 @@ h1 {
     font-size: 48px;
 }
 
-p {
-    color: #fff;
-}
-
 .glow-btn {
     position: relative;
     padding: 15px 40px;
@@ -98,6 +94,10 @@ p {
 }
 
 /* ========== GENERAL PAGE STYLE ========== */
+body {
+    background: #0a0a0a;
+    font-family: Arial, sans-serif;
+}
 
 h1 {
     color: #fff;
