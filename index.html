@@ -1,49 +1,50 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html <html>
 <head>
     <title>Fiop</title>
     <link rel="icon" href="images/icon.png" type="image/png"/>
     <link rel="stylesheet" href="stylesheet.css">
+    <style>
+        p {color: #fff; }
+    </style>
 </head>
-
 <body>
+    <h1 class="outlined-text">Hello World!</h1>
+    <br>
+    <p>
+        Fiop.dev is up and running, hello friends!
+    </p>
+    <br>
+    <img src="images/space station test.png" alt="Space Station" width="300" style="height: auto;">
+    <br>
+    <a href="/page2" class="glow-btn">Page 2</a>
+    <a onclick="let amount = prompt('Enter amount of robux:'); if(amount) { alert(`You generated ${amount} Robux!\n(this was added to my account not yours L)`); }" class="glow-btn">Free Robux (trust)</a>
+    <a href="/ilostthegame" class="glow-btn">DO NOT CLICK</a>
+    <br><br><br>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 2</a>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 3</a>
+    <a onclick="
+        let amount2 = prompt('Enter Password:');
+        if (amount2 === 'doggos') {
+            alert('Password correct, press enter to continue');
+            location.href = '/doggos';} 
+        else {alert('Incorrect Password (L)');}
+        return false;" class="glow-btn">Doggos</a>
+    <br><br><br>
+    <a onclick="
+        let amount3 = prompt('Enter Password:');
+        if (amount3 === 'nightfall') {
+            alert('Password correct, press enter to continue');
+            location.href = '/nightfall';} 
+        else {alert('Incorrect Password (L)');}
+        return false;" class="glow-btn">Password Test</a>
+    <a href="/changelog" class="glow-btn">Changelog</a>
+    <a onclick="
+        let amount4 = prompt('Enter Password:');
+        if (amount4 === 'actualpassword123') {
+            alert('Password correct, press enter to continue');
+            location.href = '/livechat';} 
+        else {alert('Incorrect Password (L)');}
+        return false;" class="glow-btn">Chat</a>
 
-    <!-- Top tab bar -->
-    <div class="top-bar">
-        <div class="tab-left">
-            <button class="tab-btn active" onclick="showPage('home', this)">Home</button>
-            <button class="tab-btn" onclick="showPage('buttons', this)">Buttons</button>
-        </div>
-        <div class="tab-right">
-            <a href="/changelog" class="glow-btn">Changelog</a>
-            <a onclick="alert('Chat coming soon!');" class="glow-btn">Chat</a>
-        </div>
-    </div>
-
-    <!-- Main page -->
-    <div id="home" class="page active">
-        <h1 class="outlined-text">Hello World!</h1>
-        <p>Fiop.dev is up and running, hello friends!</p>
-    </div>
-
-    <!-- Buttons page -->
-    <div id="buttons" class="page">
-        <br>
-        <img src="images/space station test.png" alt="Space Station" width="300" style="height: auto;">
-        <br>
-        <a href="/page2" class="glow-btn">Page 2</a>
-        <a onclick="let amount = prompt('Enter amount of robux:'); if(amount){ alert(`You generated ${amount} Robux!\n(this was added to my account not yours L)`); }" class="glow-btn">Free Robux (trust)</a>
-        <a href="/ilostthegame" class="glow-btn">DO NOT CLICK</a>
-        <br><br><br>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 2</a>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 3</a>
-        <a onclick="let pw=prompt('Enter Password:'); if(pw==='doggos'){ alert('Password correct'); location.href='/doggos';} else{alert('Incorrect Password (L)');}" class="glow-btn">Doggos</a>
-        <br><br><br>
-        <a onclick="let pw2=prompt('Enter Password:'); if(pw2==='nightfall'){ alert('Password correct'); location.href='/nightfall';} else{alert('Incorrect Password (L)');}" class="glow-btn">Password Test</a>
-        <a href="/changelog" class="glow-btn">Changelog</a>
-        <a onclick="let pw3=prompt('Enter Password:'); if(pw3==='actualpassword123'){ alert('Password correct'); location.href='/livechat';} else{alert('Incorrect Password (L)');}" class="glow-btn">Chat</a>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
