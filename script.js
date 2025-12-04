@@ -27,12 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function showPage(pageID) {
+function showPage(pageId, button) {
     // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     // Show selected page
-    document.getElementById(pageID).classList.add('active');
+    document.getElementById(pageId).classList.add('active');
+
+    // Update tab active state
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    if (button) button.classList.add('active');
 }

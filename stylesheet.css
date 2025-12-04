@@ -1,107 +1,20 @@
+/* ========== GLOBAL STYLES ========== */
 body {
-    background: #0a0a0a;
+    background: #000;
+    color: white;
     font-family: Arial, sans-serif;
+    margin: 0;
 }
 
 h1 {
     color: #fff;
     font-size: 48px;
+    text-align: center;
 }
 
 p {
     color: #fff;
-}
-
-.glow-btn {
-    position: relative;
-    padding: 15px 40px;
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    border-radius: 4px;
-    background: #111;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.glow-btn::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    background: linear-gradient(45deg, #8a2cff, #3bb2ff);
-    z-index: -1;
-}
-
-.glow-btn::after {
-    content: "";
-    position: absolute;
-    inset: -8px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, #8a2cff, #3bb2ff);
-    filter: blur(4px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -2;
-}
-
-.glow-btn:hover::after {
-    opacity: 0.7;
-}
-
-.outlined-text {
-    font-family: Arial, sans-serif;
-    color: white;
-    text-shadow: 
-        1px 1px 10px #8c00ff,
-        -1px -1px 10px #ff00f2,
-        -1px 1px 10px #1e00ff,
-        1px -1px 10px #00f2ff;
-}
-
-
-.rainbow-shadow {
-  font-size: 90px;
-  font-weight: bold;
-  color: white;
-  display: inline-block;
-  text-shadow:
-      1px 1px 10px red,
-      -1px -1px 10px red,
-      -1px 1px 10px red,
-      1px -1px 10px red;
-  animation: hueRotate 2s linear infinite;
-}
-
-@keyframes hueRotate {
-  0%   { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
-.strobe-shadow {
-  font-size: 90px;
-  font-weight: bold;
-  color: white;
-  display: inline-block;
-  text-shadow:
-      1px 1px 10px white,
-      -1px -1px 10px white,
-      -1px 1px 10px white,
-      1px -1px 10px white;
-  animation: strobe 0.5s linear infinite;
-}
-
-@keyframes strobe {
-  0%   { filter: brightness(0); }
-  50%  { filter: brightness(2); }  
-  100% { filter: brightness(0); }  
-}
-
-/* ========== GENERAL PAGE STYLE ========== */
-
-h1 {
-    color: #fff;
-    font-size: 48px;
+    text-align: center;
 }
 
 /* ========== GLOW BUTTON ========== */
@@ -115,6 +28,11 @@ h1 {
     background: #111;
     z-index: 1;
     overflow: hidden;
+    margin: 5px;
+    display: inline-block;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .glow-btn::before {
@@ -142,8 +60,7 @@ h1 {
     opacity: 0.7;
 }
 
-
-/* ========== TEXT SHADOW EFFECTS ========== */
+/* ========== TEXT EFFECTS ========== */
 .outlined-text {
     font-family: Arial, sans-serif;
     color: white;
@@ -159,16 +76,12 @@ h1 {
     font-weight: bold;
     color: white;
     display: inline-block;
-    text-shadow:
-        1px 1px 10px red,
-        -1px -1px 10px red,
-        -1px 1px 10px red,
-        1px -1px 10px red;
+    text-shadow: 1px 1px 10px red, -1px -1px 10px red, -1px 1px 10px red, 1px -1px 10px red;
     animation: hueRotate 2s linear infinite;
 }
 
 @keyframes hueRotate {
-    0%   { filter: hue-rotate(0deg); }
+    0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
 }
 
@@ -177,22 +90,70 @@ h1 {
     font-weight: bold;
     color: white;
     display: inline-block;
-    text-shadow:
-        1px 1px 10px white,
-        -1px -1px 10px white,
-        -1px 1px 10px white,
-        1px -1px 10px white;
+    text-shadow: 1px 1px 10px white, -1px -1px 10px white, -1px 1px 10px white, 1px -1px 10px white;
     animation: strobe 0.5s linear infinite;
 }
 
 @keyframes strobe {
-    0%   { filter: brightness(0); }
-    50%  { filter: brightness(2); }
+    0% { filter: brightness(0); }
+    50% { filter: brightness(2); }
     100% { filter: brightness(0); }
 }
 
+/* ========== TOP BAR ========== */
+.top-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px #000;
+}
 
-/* ========== CHANGELOG DROPDOWN ========== */
+.tab-left, .tab-right {
+    display: flex;
+    gap: 10px;
+}
+
+/* Tab buttons */
+.tab-btn {
+    background: #222;
+    color: white;
+    border: 1px solid white;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.tab-btn:hover {
+    background: #444;
+}
+
+.tab-btn.active {
+    border-bottom: 2px solid #0ff;
+    color: #0ff;
+}
+
+/* ========== PAGE WRAPPER ========== */
+.page {
+    display: none;
+    padding-top: 80px; /* space for top bar */
+    text-align: center;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ========== ACCORDION / CHANGELOG ========== */
 .accordion-container {
     width: 100%;
     max-width: 700px;
@@ -234,6 +195,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+/* ========== CHAT PAGE ========== */
 .chat-page {
     font-family: Arial, sans-serif;
     display: flex;
@@ -276,49 +238,4 @@ h1 {
 
 .chat-page #send-btn:hover {
     background: #777;
-}
-
-body {
-    background: #000;
-    color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-}
-
-/* TOP BAR */
-.top-bar {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    display: flex;
-    gap: 10px;
-    backdrop-filter: blur(8px);
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.tab-btn {
-    background: #222;
-    color: white;
-    border: 1px solid white;
-    padding: 8px 14px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: 0.2s;
-}
-
-.tab-btn:hover {
-    background: #444;
-}
-
-/* PAGE WRAPPER */
-.page {
-    display: none;
-    padding-top: 80px; /* space for top bar */
-    text-align: center;
-}
-
-.page.active {
-    display: block;
 }
