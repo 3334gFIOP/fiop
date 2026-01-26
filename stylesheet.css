@@ -286,17 +286,17 @@ h1 {
     display: flex !important;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 6px;
 
-    margin: 40px auto;
-    padding: 30px 40px;
+    margin: 20px auto;
+    padding: 15px 20px;
     width: fit-content;
 
     background: #111;
     border-radius: 22px;
 
-    border: 2px solid white;
-    box-shadow: 0 0 30px 10px white;
+    border: 2px solid rgb(51, 0, 170);
+    box-shadow: 0 0 30px 10px rgb(79, 0, 154);
 }
 
 /* Discord username icon */
