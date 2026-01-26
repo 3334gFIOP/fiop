@@ -302,7 +302,7 @@ h1 {
 /* Discord username icon */
 .social-row {
     display: flex;
-    gap: 24px;
+    gap:12px;
 }
 
 .social-icon {
