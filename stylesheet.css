@@ -338,3 +338,34 @@ h1 {
 /* Colors */
 .discord i, .discord span { color: #5865F2; }
 .namemc i, .namemc span { color: #2ECC71; }
+
+.page-wrapper {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.main-panel {
+    padding: 30px;
+}
+
+.quote {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.box-section {
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+}
+
+.button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 15px;
+}
