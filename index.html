@@ -1,71 +1,109 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Fiop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" href="images/icon.png" type="image/png"/>
+    <link rel="icon" href="images/icon.png" type="image/png" />
     <link rel="stylesheet" href="stylesheet.css">
 </head>
+
 <body>
 
-    <div class="fiop-flexbox">
+    <div class="page-wrapper">
 
-        <h1 class="outlined-text">Fiop</h1>
-        <br>
-        <p>
-            "We fire the whole bullet! Thats 65% more bullet per bullet!"
-        </p>
-        <br>
-        <div class="social-row">
+        <div class="fiop-flexbox main-panel">
 
-            <!-- Discord -->
-            <a class="social-icon discord" href="https://discord.com/users/908872861123502090" target="_blank">
-                <i class="fa-brands fa-discord"></i>
-                <span>3334gfiop</span>
-            </a>
+            <h1 class="outlined-text">Fiop</h1>
 
-            <!-- NameMC -->
-            <a class="social-icon namemc" href="https://namemc.com/profile/3334gFIOP" target="_blank">
-                <i class="fa-solid fa-cube"></i>
-                <span>3334gFIOP</span>
-            </a>
+            <p class="quote">
+                "We fire the whole bullet! Thats 65% more bullet per bullet!"
+            </p>
 
-        </div>  
-        <br>
+            <div class="social-row">
+
+                <a class="social-icon discord" href="https://discord.com/users/908872861123502090" target="_blank">
+                    <i class="fa-brands fa-discord"></i>
+                    <span>3334gfiop</span>
+                </a>
+
+                <a class="social-icon namemc" href="https://namemc.com/profile/3334gFIOP" target="_blank">
+                    <i class="fa-solid fa-cube"></i>
+                    <span>3334gFIOP</span>
+                </a>
+
+            </div>
+        </div>
+
+
+        <div class="box-section">
+
+            <h2>Navigation</h2>
+
+            <div class="button-grid">
+                <a href="/page2" class="glow-btn">Page 2</a>
+                <a href="/changelog" class="glow-btn">Changelog</a>
+            </div>
+
+        </div>
+
+
+        <div class="box-section">
+
+            <h2>Fun Stuff</h2>
+
+            <div class="button-grid">
+                <a onclick="let amount = prompt('Enter amount of robux:'); if(amount) { alert(`You generated ${amount} Robux!\n(this was added to my account not yours L)`); }"
+                    class="glow-btn">Free Robux (trust)</a>
+
+                <a href="/ilostthegame" class="glow-btn">DO NOT CLICK</a>
+
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK
+                    2</a>
+
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK
+                    3</a>
+            </div>
+
+        </div>
+
+
+        <div class="box-section">
+
+            <h2>Secret Stuff</h2>
+
+            <div class="button-grid">
+
+                <a onclick="
+                let amount2 = prompt('Enter Password:');
+                if (amount2 === 'doggos') {
+                    alert('Password correct, press enter to continue');
+                    location.href = '/doggos';} 
+                else {alert('Incorrect Password (L)');}
+                return false;" class="glow-btn">Doggos</a>
+
+                <a onclick="
+                let amount3 = prompt('Enter Password:');
+                if (amount3 === 'nightfall') {
+                    alert('Password correct, press enter to continue');
+                    location.href = '/nightfall';} 
+                else {alert('Incorrect Password (L)');}
+                return false;" class="glow-btn">Password Test</a>
+
+                <a onclick="
+                let amount4 = prompt('Enter Password:');
+                if (amount4 === 'actualpassword123') {
+                    alert('Password correct, press enter to continue');
+                    location.href = '/livechat';} 
+                else {alert('Incorrect Password (L)');}
+                return false;" class="glow-btn">Chat</a>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <br>
-    <a href="/page2" class="glow-btn">Page 2</a>
-    <a onclick="let amount = prompt('Enter amount of robux:'); if(amount) { alert(`You generated ${amount} Robux!\n(this was added to my account not yours L)`); }" class="glow-btn">Free Robux (trust)</a>
-    <a href="/ilostthegame" class="glow-btn">DO NOT CLICK</a>
-    <br><br><br>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 2</a>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK 3</a>
-    <a onclick="
-        let amount2 = prompt('Enter Password:');
-        if (amount2 === 'doggos') {
-            alert('Password correct, press enter to continue');
-            location.href = '/doggos';} 
-        else {alert('Incorrect Password (L)');}
-        return false;" class="glow-btn">Doggos</a>
-    <br><br><br>
-    <a onclick="
-        let amount3 = prompt('Enter Password:');
-        if (amount3 === 'nightfall') {
-            alert('Password correct, press enter to continue');
-            location.href = '/nightfall';} 
-        else {alert('Incorrect Password (L)');}
-        return false;" class="glow-btn">Password Test</a>
-    <a href="/changelog" class="glow-btn">Changelog</a>
-    <a onclick="
-        let amount4 = prompt('Enter Password:');
-        if (amount4 === 'actualpassword123') {
-            alert('Password correct, press enter to continue');
-            location.href = '/livechat';} 
-        else {alert('Incorrect Password (L)');}
-        return false;" class="glow-btn">Chat</a>
-    <br>
-  
-  
 </body>
+
 </html>
