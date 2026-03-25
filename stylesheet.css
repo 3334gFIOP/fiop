@@ -397,12 +397,9 @@ h1 {
 
     padding: 20px 40px;
 
-    border: 2px solid white;
-    border-radius: 12px;
-
     cursor: pointer;
 
-    transition: 0.3s;
+    transition: 0.1s;
 }
 
 #overlay-text:hover {
