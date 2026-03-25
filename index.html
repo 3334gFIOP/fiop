@@ -14,6 +14,7 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
         h2 {
             color: #fff;
             font-size: 48px;
@@ -22,6 +23,10 @@
 </head>
 
 <body>
+
+    <div id="overlay">
+        <div id="overlay-text">Click to enter</div>
+    </div>
 
     <div class="page-wrapper">
 
@@ -117,16 +122,35 @@
 
     </div>
 
-<audio id="bgMusic" loop>
-    <source src="audio/musicsubwooferlullaby.mp3" type="audio/mpeg">
-</audio>
+    <audio id="bgMusic" loop>
+        <source src="audio/musicsubwooferlullaby.mp3" type="audio/mpeg">
+    </audio>
 
-<script>
-    document.addEventListener("click", () => {
+    <script>
+        const overlay = document.getElementById("overlay");
         const music = document.getElementById("bgMusic");
-        music.play();
-    }, { once: true });
-</script>
+
+        overlay.addEventListener("click", () => {
+            overlay.style.opacity = "0";
+
+            setTimeout(() => {
+                overlay.style.display = "none";
+            }, 500);
+
+            music.volume = 0;
+            music.play();
+
+            let vol = 0;
+            const fade = setInterval(() => {
+                if (vol < 1) {
+                    vol += 0.05;
+                    music.volume = vol;
+                } else {
+                    clearInterval(fade);
+                }
+            }, 100);
+        });
+    </script>
 
 </body>
 
