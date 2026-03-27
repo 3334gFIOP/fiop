@@ -264,6 +264,7 @@ h1 {
 /* Discord username icon */
 .social-row {
     display: flex;
+    align-items: center;
     gap:12px;
 }
 
