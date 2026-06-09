@@ -14,6 +14,11 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
+        h2 {
+            color: #fff;
+            font-size: 48px;
+        }
     </style>
 </head>
 
@@ -25,16 +30,14 @@
 
     <div class="page-wrapper">
 
-        
+
         <h1 class="outlined-text">Fiop</h1>
 
         <p class="quote">
-            "We fire the whole bullet! Thats 65% more bullet per bullet!"<br>
-            "The water doesn't get any colder the longer it takes you to jump in"<br>
-            "Losing sleep for your dreams is better than dreaming about them"
+            "We fire the whole bullet! Thats 65% more bullet per bullet!"
         </p>
 
-        <div class="social-row", >
+        <div class="social-row">
 
             <a class="social-icon discord" href="https://discord.com/users/908872861123502090" target="_blank">
                 <i class="fa-brands fa-discord"></i>
@@ -45,16 +48,42 @@
                 <i class="fa-solid fa-cube"></i>
                 <span>3334gFIOP</span>
             </a>
+
+
         </div>
+
+
         <div class="box-section">
 
             <h2>Navigation</h2>
 
             <div class="button-grid">
+                <a href="/page2" class="glow-btn">Page 2</a>
                 <a href="/changelog" class="glow-btn">Changelog</a>
             </div>
 
         </div>
+
+
+        <div class="box-section">
+
+            <h2>Fun Stuff</h2>
+
+            <div class="button-grid">
+                <a onclick="let amount = prompt('Enter amount of robux:'); if(amount) { alert(`You generated ${amount} Robux!\n(this was added to my account not yours L)`); }"
+                    class="glow-btn">Free Robux (trust)</a>
+
+                <a href="/ilostthegame" class="glow-btn">DO NOT CLICK</a>
+
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK
+                    2</a>
+
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="glow-btn">DO NOT CLICK
+                    3</a>
+            </div>
+
+        </div>
+
 
         <div class="box-section">
 
@@ -63,12 +92,28 @@
             <div class="button-grid">
 
                 <a onclick="
-                let amount4 = prompt('Enter Password (password):');
-                if (amount4 === 'password') {
+                let amount2 = prompt('Enter Password:');
+                if (amount2 === 'doggos') {
+                    alert('Password correct, press enter to continue');
+                    location.href = '/doggos';} 
+                else {alert('Incorrect Password (L)');}
+                return false;" class="glow-btn">Doggos</a>
+
+                <a onclick="
+                let amount3 = prompt('Enter Password:');
+                if (amount3 === 'nightfall') {
+                    alert('Password correct, press enter to continue');
+                    location.href = '/nightfall';} 
+                else {alert('Incorrect Password (L)');}
+                return false;" class="glow-btn">Password Test</a>
+
+                <a onclick="
+                let amount4 = prompt('Enter Password:');
+                if (amount4 === 'actualpassword123') {
                     alert('Password correct, press enter to continue');
                     location.href = '/livechat';} 
                 else {alert('Incorrect Password (L)');}
-                return false;" class="glow-btn">Online Chat</a>
+                return false;" class="glow-btn">Chat</a>
 
             </div>
 
